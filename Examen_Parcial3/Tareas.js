@@ -1,11 +1,11 @@
 export default class Tareas{
     constructor(tareas){
-        this.nombreTa = tareas.nombreTa;
-        this.fLimite = tareas.fLimite;
+        this._tNombre = tareas.tNombre;
+        this._fLimite = tareas.fLimite;
 
     }
-    get nombreTa() {
-        return this._nombreTa;
+    get tNombre() {
+        return this._tNombre;
     }
     get fLimite() {
         return this._fLimite;
@@ -19,7 +19,7 @@ export default class Tareas{
         return numero;
     }
 
-    obCumpleD() {
+    obDias() {
         let { cumple } = this;
     
         let dia = cumple.getFullYear() +
@@ -42,15 +42,5 @@ export default class Tareas{
 
         return dia;
       }
-  
-        obEdad() {
-          let unDia = 24 * 60 * 60 * 1000;
-          let unAnio = unDia * 365;
-          let difEdad = new Date() - this._cumple;
-          let age = Math.trunc(difEdad / unAnio);
-      
-          return age;
-        }
-
 
     }
