@@ -1,4 +1,4 @@
-import Tareas from "./Tareas.js";
+import Tarea from "./Tareas.js";
 import Lista from "./Lista.js";
 
 class Main{
@@ -17,14 +17,14 @@ class Main{
 
                 let fLimite = new Date(fLimiteS[0], fLimiteS[1], fLimiteS[2]);
 
-                let objTareas = {
-                    nombre: tNombre,
+                let objTarea = {
+                    tNombre: tNombre,
                     fLimite: fLimite,
                 };
 
-                let tarea = new Tareas(objTareas);
+                let tarea = new Tarea(objTarea);
 
-                Lista2.agregarTar(tarea);
+                Lista2.agTarea(tarea);
             }
             form.classList.add('was-validated');
         });

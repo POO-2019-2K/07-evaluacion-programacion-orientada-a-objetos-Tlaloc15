@@ -1,24 +1,24 @@
-import Tareas from "./Tareas.js";
+import Tarea from "./Tareas.js";
 export default class Lista{
     constructor(Lista, Contar){
         this._tablaLista = Lista;
         this._tablaContar = Contar;
         this._tareas = [];
         this._numTareas = 0;
-
+        //localStorage.removeItem("tarea");
         this._tabaInicio();
     }
 
     _tabaInicio() {
-        let lsLista = JSON.parse(localStorage.getItem('lista'));
+        let lsLista = JSON.parse(localStorage.getItem('tarea'));
         if (lsLista === null) {
             return;
         }
-        lsLista.array.forEach((f) => {
+        lsLista.forEach((f) => {
 
             f.fLimite = new Date(f.fLimite);
 
-            this._agregarTa(new Tareas(f));
+            this._agTabla(new Tarea(f));
         });
     }
 
@@ -27,28 +27,30 @@ export default class Lista{
 
         let celNombre = fila.insertCell(0);
         let celFLimite = fila.insertCell(1);
+        let celDia = fila.insertCell(2)
 
         celNombre.innerHTML = tarea.tNombre;
-        celFLimite.innerHTML = tarea.obTaLimite();
+        celFLimite.innerHTML = tarea.obFLimiteS();
+        celDia.innerHTML = tarea.obDia();
         
 
         this._numTareas++;
         this._tablaContar.rows[0].cells[1].innerHTML = this._numTareas;
 
-       let objTareas = {
-          nombre: tarea.tNombre,
-          fLimite: tarea.obTaLimite(),
-          dias: tarea.dias,
+       let objTarea = {
+          tNombre: tarea.tNombre,
+          fLimite: tarea.fLimite,
+          dia: tarea.obDia(),
         };
 
-        this._tareas.push(objTareas);
+        this._tareas.push(objTarea);
 }
 
-_buscar(nombreTa) {
+_buscar(tNombre) {
     let lugar = -1;
 
-    this._tareas.forEach((c, index) => {
-      if(c.nombreTa === nombreTa) {
+    this._tareas.forEach((t, index) => {
+      if(t.tNombre === tNombre) {
         lugar = index;
         return;
       }
@@ -59,7 +61,7 @@ _buscar(nombreTa) {
   }
 
   agTarea(tarea) {
-    let buscar = this._buscar(tarea.nombreTa);
+    let buscar = this._buscar(tarea.tNombre);
 
     if(buscar >= 0) {
       Swal.fire({
