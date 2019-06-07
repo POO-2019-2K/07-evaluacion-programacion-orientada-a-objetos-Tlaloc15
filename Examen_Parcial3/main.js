@@ -15,7 +15,7 @@ class Main{
                 let fLimiteS = document.querySelector('#fLimite').value;
                 fLimiteS = fLimiteS.split('-');
 
-                let fLimite = new Date(fLimiteS[0], fLimiteS[1], fLimiteS[2]);
+                let fLimite = new Date(fLimiteS[0], fLimiteS[1]-1, fLimiteS[2]);
 
                 let objTarea = {
                     tNombre: tNombre,
@@ -28,6 +28,18 @@ class Main{
             }
             form.classList.add('was-validated');
         });
+
+        var select = document.getElementById("Tipo");
+           select.addEventListener("change", () => {
+               var Tipo = select.value;
+               if (Tipo === "Nombre") {
+                   Tipo = 1;
+               }else if (Tipo === "Días restantes") {
+                   Tipo = 2;
+               }
+               console.log( Tipo)
+               Lista2._admin(Tipo);
+           })
 
     }
 }
