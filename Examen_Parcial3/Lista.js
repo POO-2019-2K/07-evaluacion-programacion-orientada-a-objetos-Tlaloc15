@@ -24,7 +24,7 @@ export default class Lista{
     //_cancelEdit
     _siempreNo(fila, tarea) {
         fila.cells[0].innerHTML = tarea.tNombre;
-        fila.cells[1].innerHTML =tarea.obDiasD();
+        fila.cells[1].innerHTML =tarea.obFLimiteS();
         fila.cells[2].innerHTML = tarea.obDia();
         fila.cells[3].innerHTML = "";
         fila.cells[4].innerHTML = "";
@@ -32,10 +32,14 @@ export default class Lista{
       }
       //_saveEdit
       _salvar(fila, tarea, newRegistros){
+        let nuevoDia = newRegistros.fLimite;
         let pos = this._buscar(tarea.tNombre);
+        let diaS = nuevoDia.split("-");
+        nuevoDia = new Date(diaS[0], diaS[1], diaS[2]);
+        newRegistros.fLimite = diaS;
         this._tareas[pos] = newRegistros;
         localStorage.setItem('tarea', JSON.stringify(this._tareas));
-        this._siempreNo(fila, new Lista(newRegistros));
+        this._siempreNo(fila, new Tarea(newRegistros));
       }
       //_editRow
       _editar(fila, tarea) {
@@ -79,16 +83,18 @@ export default class Lista{
         fila.cells[4].appendChild(btnCancel);
       }
       _eliminar(fila, tarea){
-          for(let i=0; i < this._tareas.length; i++){
-              if(tarea.tNombre === this._tareas[i].tNombre){
-                  this._tareas.splice(i,1);
-                  break}
+        let array = JSON.parse(localStorage.getItem('tarea'));
+          for(let i=0; i < array.length; i++){
+              if(tarea.tNombre === array[i].tNombre){
+                array.splice(i, 1);
+                  break
+                }
               }
               fila.innerHTML= '';
-              localStorage.setItem("tarea", JSON.stringify(this._tareas));
               location.reload();
-              return;
+              localStorage.setItem("tarea", JSON.stringify(array));
       }
+
     _agEdQuitar(fila, tarea) {
         let btnEdit = document.createElement("input");
         btnEdit.type = "button";
@@ -112,7 +118,6 @@ export default class Lista{
           });
     }
       
-
     _agTabla(tarea) {
         let fila = this._tablaLista.insertRow(-1);
 
@@ -141,8 +146,9 @@ export default class Lista{
         this._tareas.push(objTarea);
 }
 
-_admin(Tipo) {
-    var orden = this._tareas.slice(-this._numTareas);
+    _admin(Tipo) {
+    let orden = [];
+    orden = this._tareas.slice(-this._numTareas);
     if (Tipo === 1) {
       orden.sort(function(a, b) {
         return a.tNombre.localeCompare(b.tNombre);
@@ -152,10 +158,12 @@ _admin(Tipo) {
         return a.fLimite - b.fLimite;
       });
     }
-    this._limpiarTo();
     localStorage.setItem("tarea", JSON.stringify(orden));
+    this._limpiarTo();
     this._tablaInicio();
+    
   }
+
   _limpiarTo() {
     var i;
     console.log(this._numTareas)
@@ -164,43 +172,6 @@ _admin(Tipo) {
     }
     this._numTareas = 0;
   }
-
-
-_alfabeticamente(a, b) {
-  if (a.tarea < b.tarea) {
-      return -1;
-  }
-  if (a.tarea > b.tarea) {
-      return 1;
-  }
-  return 0;
-}
-_alfa() {
-  this._actividades.sort(this._alfabeticamente);
-}
-mostrarAlfabeticamente() {
-  this._actividades.sort(this._alfabeticamente);
-  localStorage.setItem("actividades", JSON.stringify(this._actividades));
-  location.reload();
-}
-///////////////////////////////////////////////////////////////
-_numericamente(a, b) {
-  if (a.final < b.final) {
-      return -1;
-  }
-  if (a.final > b.final) {
-      return 1;
-  }
-  return 0;
-}
-_num() {
-  this._actividades.sort(this._numericamente);
-}
-mostrarNumericamente() {
-  this._actividades.sort(this._numericamente);
-  localStorage.setItem("actividades", JSON.stringify(this._actividades));
-  location.reload();
-}
 
 _buscar(tNombre) {
     let lugar = -1;

@@ -12,10 +12,10 @@ class Main{
 
             if (form.checkValidity() === true) {
                 let tNombre = document.querySelector('#tNombre').value;
-                let fLimiteS = document.querySelector('#fLimite').value;
-                fLimiteS = fLimiteS.split('-');
+                let f = document.querySelector('#fLimite').value;
+                f = f.split('-');
 
-                let fLimite = new Date(fLimiteS[0], fLimiteS[1]-1, fLimiteS[2]);
+                let fLimite = new Date(f[0], f[1]-1, f[2]);
 
                 let objTarea = {
                     tNombre: tNombre,
