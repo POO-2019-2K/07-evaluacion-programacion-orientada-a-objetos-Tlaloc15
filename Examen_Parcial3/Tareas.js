@@ -1,5 +1,3 @@
-import Lista from "./Lista.js";
-
 export default class Tarea{
     constructor(tareas){
         this._tNombre = tareas.tNombre;
@@ -37,7 +35,7 @@ export default class Tarea{
         return numero;
     }
     //_cancelEdit
-    _siempreNo(fila, tareas) {
+   /* _siempreNo(fila, tareas) {
       fila.cells[0].innerHTML = tareas.num;
       fila.cells[1].innerHTML = tareas.tarea;
       fila.cells[2].innerHTML =tareas.obFLimiteS();
@@ -94,13 +92,13 @@ export default class Tarea{
       fila.cells[1].appendChild(iFLimite);
       fila.cells[2].innerHTML = '';
       fila.cells[2].appendChild(iDia);
+      fila.cells[3].innerHTML = '';
+      fila.cells[3].appendChild(btnSalvar);
       fila.cells[4].innerHTML = '';
-      fila.cells[4].appendChild(btnSalvar);
-      fila.cells[5].innerHTML = '';
-      fila.cells[5].appendChild(btnCancel);
-    }
+      fila.cells[4].appendChild(btnCancel);
+    } */
   //_addEditDeleteToRow
-  _agEdQuitar(fila, tareas) {
+ /* _agEdQuitar(fila, tareas) {
       let btnEdit = document.createElement("input");
       btnEdit.type = "button";
       btnEdit.value = 'Editar';
@@ -114,17 +112,17 @@ export default class Tarea{
         btnQuitar.value = "Eliminar";
         btnQuitar.className = "btn btn-danger"
       
-      fila.cells[4].innerHTML = '';
-      fila.cells[4].appendChild(btnEdit);
-      fila.cells[3].innerHTML = "";
-      fila.cells[3].appendChild(btnQuitar);
+      fila.cells[3].innerHTML = '';
+      fila.cells[3].appendChild(btnEdit);
+      fila.cells[4].innerHTML = "";
+      fila.cells[4].appendChild(btnQuitar);
       btnQuitar.addEventListener('click', () => {
         this._tareas.splice(tarea, 1);
               fila.innerHTML = "";
               localStorage.setItem("tarea", JSON.stringify(this._tareas));
               return;
         });
-  }
+  }*/
 
     obDiasD() {
         let { fLimite } = this;

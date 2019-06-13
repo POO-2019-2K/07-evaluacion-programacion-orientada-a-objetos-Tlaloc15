@@ -39,7 +39,7 @@ class Main{
                }
                console.log( Tipo)
                Lista2._admin(Tipo);
-           })
+           });
 
     }
 }
